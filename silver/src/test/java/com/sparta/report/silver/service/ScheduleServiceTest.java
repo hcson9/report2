@@ -1,7 +1,6 @@
-package com.sparta.report.silver.controller;
+package com.sparta.report.silver.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -21,7 +20,7 @@ import org.mockito.Mockito;
  * @version 1.0
  * @since 1.0
  */
-class ScheduleControllerTest {
+class ScheduleServiceTest {
 
   private ScheduleRepository repository = Mockito.mock(ScheduleRepository.class);
   private ScheduleService service = new ScheduleService(repository);
