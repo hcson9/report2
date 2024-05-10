@@ -1,14 +1,20 @@
 package com.sparta.report.platinum.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.report.platinum.dto.ScheduleCreateRequest;
 import com.sparta.report.platinum.dto.ScheduleResponse;
+import com.sparta.report.platinum.dto.ScheduleUpdateRequest;
 import com.sparta.report.platinum.service.ScheduleService;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,7 +47,7 @@ class ScheduleControllerTest {
   @MockBean
   private ScheduleService service;
 
-  private String baseUrl = "/schedule";
+  private final String baseUrl = "/schedule";
 
   @Test
   void findByIdTest() throws Exception {
@@ -72,7 +78,7 @@ class ScheduleControllerTest {
     when(service.findAll()).thenReturn(List.of(response));
 
     // then
-    mvc.perform(get(baseUrl ))
+    mvc.perform(get(baseUrl))
         .andExpectAll(status().isOk(),
             content().contentType(MediaType.APPLICATION_JSON),
             jsonPath("$[0].id").exists(),
@@ -84,14 +90,54 @@ class ScheduleControllerTest {
   }
 
   @Test
-  void createTest() {
+  void createTest() throws Exception {
+    // given
+    ScheduleCreateRequest request = new ScheduleCreateRequest("123", "123", "456", "789");
+    ScheduleResponse response = new ScheduleResponse(1L, "123", "456", "789", LocalDateTime.now());
+
+    // when
+    when(service.save(any())).thenReturn(response);
+
+    // then
+    mvc.perform(post(baseUrl)
+            .content(objectMapper.writeValueAsString(request))
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpectAll(status().isCreated(),
+            content().contentType(MediaType.APPLICATION_JSON),
+            jsonPath("$.id").exists(),
+            jsonPath("$.title").exists(),
+            jsonPath("$.description").exists(),
+            jsonPath("$.username").exists(),
+            jsonPath("$.createdAt").exists());
   }
 
   @Test
-  void updateTest() {
+  void updateTest() throws Exception {
+    // given
+    ScheduleUpdateRequest request = new ScheduleUpdateRequest(1L, "123", "123");
+    ScheduleResponse response = new ScheduleResponse(1L, "123", "456", "789", LocalDateTime.now());
+
+    // when
+    when(service.update(any())).thenReturn(response);
+
+    // then
+    mvc.perform(put(baseUrl)
+            .content(objectMapper.writeValueAsString(request))
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpectAll(status().isOk(),
+            content().contentType(MediaType.APPLICATION_JSON),
+            jsonPath("$.id").exists(),
+            jsonPath("$.title").exists(),
+            jsonPath("$.description").exists(),
+            jsonPath("$.username").exists(),
+            jsonPath("$.createdAt").exists());
   }
 
   @Test
-  void deleteTest() {
+  void deleteTest() throws Exception {
+    // then
+    mvc.perform(delete(baseUrl + "/{id}", 1))
+        .andExpectAll(status().isOk()
+        );
   }
 }
