@@ -1,0 +1,35 @@
+### POST
+POST http://localhost:8080/schedule
+Content-Type: application/json
+
+{
+  "title": "안녕하세요",
+  "username": "hello",
+  "description": "뭐하지",
+  "password": "1234"
+}
+
+
+### GET
+GET http://localhost:8080/schedule/1
+
+### Update
+PUT http://localhost:8080/schedule
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "안녕하세요2",
+  "description": "뭐하지222"
+}
+
+### GET
+GET http://localhost:8080/schedule/1
+
+
+### delete
+DELETE http://localhost:8080/schedule/1
+
+
+### findAll
+GET http://localhost:8080/schedule
