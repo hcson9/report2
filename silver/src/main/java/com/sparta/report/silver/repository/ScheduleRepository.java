@@ -74,7 +74,7 @@ public class ScheduleRepository {
    */
   public Schedule update(Schedule schedule) throws DataNotFoundException {
     checkId(schedule.getId());
-    return db.putIfAbsent(schedule.getId(), schedule);
+    return db.put(schedule.getId(), schedule);
   }
 
   /**

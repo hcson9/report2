@@ -33,7 +33,17 @@ public class ScheduleService {
    * @return 응답.
    */
   public ScheduleResponse findById(long id) {
-    return ScheduleResponse.toDto(repository.findById(id));
+    return ScheduleResponse.toDto(findScheduleById(id));
+  }
+
+  /**
+   * Schedule 조회.
+   *
+   * @param id id
+   * @return Schedule
+   */
+  private Schedule findScheduleById(long id) {
+    return repository.findById(id);
   }
 
   /**
@@ -68,7 +78,9 @@ public class ScheduleService {
    * @return 수정된 응답 값
    */
   public ScheduleResponse update(ScheduleUpdateRequest request) {
-    return ScheduleResponse.toDto(repository.update(null));
+    Schedule schedule = findScheduleById(request.getId());
+    schedule.update(request.getTitle(), request.getDescription());
+    return ScheduleResponse.toDto(repository.update(schedule));
   }
 
   /**

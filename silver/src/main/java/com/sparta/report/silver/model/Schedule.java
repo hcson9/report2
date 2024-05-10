@@ -64,4 +64,15 @@ public class Schedule {
     this.password = password;
     this.createdAt = LocalDateTime.now();
   }
+
+  /**
+   * 수정.
+   *
+   * @param title       제목
+   * @param description 설명
+   */
+  public void update(String title, String description) {
+    this.description = description;
+    this.title = title;
+  }
 }
