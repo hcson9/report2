@@ -39,7 +39,6 @@ public class Schedule {
   @Column(length = 100, nullable = false)
   private String username;
 
-  @Getter(AccessLevel.PRIVATE)
   @Column(length = 100, nullable = false)
   private String password;
 

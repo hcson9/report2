@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.report.platinum.dto.ScheduleCreateRequest;
+import com.sparta.report.platinum.dto.ScheduleDeleteRequest;
 import com.sparta.report.platinum.dto.ScheduleResponse;
 import com.sparta.report.platinum.dto.ScheduleUpdateRequest;
 import com.sparta.report.platinum.service.ScheduleService;
@@ -135,8 +136,12 @@ class ScheduleControllerTest {
 
   @Test
   void deleteTest() throws Exception {
+    ScheduleDeleteRequest request = new ScheduleDeleteRequest(1L, "123");
+
     // then
-    mvc.perform(delete(baseUrl + "/{id}", 1))
+    mvc.perform(delete(baseUrl)
+            .content(objectMapper.writeValueAsString(request))
+            .contentType(MediaType.APPLICATION_JSON))
         .andExpectAll(status().isOk()
         );
   }

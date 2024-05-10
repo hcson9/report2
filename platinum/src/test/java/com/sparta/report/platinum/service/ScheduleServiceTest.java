@@ -3,9 +3,11 @@ package com.sparta.report.platinum.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 import com.sparta.report.platinum.dto.ScheduleCreateRequest;
+import com.sparta.report.platinum.dto.ScheduleDeleteRequest;
 import com.sparta.report.platinum.dto.ScheduleUpdateRequest;
 import com.sparta.report.platinum.model.Schedule;
 import com.sparta.report.platinum.repository.ScheduleRepository;
@@ -85,12 +87,14 @@ class ScheduleServiceTest {
   void deleteTest() {
     // given
     Schedule schedule = Mockito.mock(Schedule.class);
+    ScheduleDeleteRequest scheduleDeleteRequest = new ScheduleDeleteRequest(1L, "123");
+    given(schedule.getPassword()).willReturn(scheduleDeleteRequest.getPassword());
 
     //when
     when(repository.findById(any(Long.class)))
         .thenReturn(Optional.of(schedule));
 
     // then
-    assertDoesNotThrow(() -> service.delete(1L));
+    assertDoesNotThrow(() -> service.delete(scheduleDeleteRequest));
   }
 }

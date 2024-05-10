@@ -1,6 +1,7 @@
 package com.sparta.report.platinum.service;
 
 import com.sparta.report.platinum.dto.ScheduleCreateRequest;
+import com.sparta.report.platinum.dto.ScheduleDeleteRequest;
 import com.sparta.report.platinum.dto.ScheduleResponse;
 import com.sparta.report.platinum.dto.ScheduleUpdateRequest;
 import com.sparta.report.platinum.model.Schedule;
@@ -70,7 +71,7 @@ public class ScheduleService {
    */
   public List<ScheduleResponse> findAll() {
     List<Schedule> list = repository.findAll();
-    
+
     return list
         .stream()
         .sorted(Comparator.comparing(Schedule::getCreatedAt).reversed())
@@ -94,12 +95,16 @@ public class ScheduleService {
   /**
    * 삭제.
    *
-   * @param id 삭제할 id
+   * @param request 삭제 요청
    */
 
   @Transactional
-  public void delete(long id) {
-    Schedule schedule = findScheduleById(id);
+  public void delete(ScheduleDeleteRequest request) {
+    Schedule schedule = findScheduleById(request.getId());
+
+    if (!schedule.getPassword().equals(request.getPassword())) {
+      throw new IllegalArgumentException("password is not correct");
+    }
     repository.delete(schedule);
   }
 }

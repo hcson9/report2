@@ -1,6 +1,7 @@
 package com.sparta.report.gold.controller;
 
 import com.sparta.report.gold.dto.ScheduleCreateRequest;
+import com.sparta.report.gold.dto.ScheduleDeleteRequest;
 import com.sparta.report.gold.dto.ScheduleResponse;
 import com.sparta.report.gold.dto.ScheduleUpdateRequest;
 import com.sparta.report.gold.service.ScheduleService;
@@ -86,12 +87,12 @@ public class ScheduleController {
   /**
    * 삭제.
    *
-   * @param id 삭제할 id
+   * @param request 삭제할 정보
    * @return 삭제정보.
    */
-  @DeleteMapping("/{id}")
-  public ResponseEntity<String> delete(@PathVariable(name = "id") long id) {
-    service.delete(id);
+  @DeleteMapping("")
+  public ResponseEntity<String> delete(@Valid @RequestBody ScheduleDeleteRequest request) {
+    service.delete(request);
     return ResponseEntity.ok()
         .body("Successfully deleted");
   }

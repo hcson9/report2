@@ -1,6 +1,7 @@
 package com.sparta.report.gold.service;
 
 import com.sparta.report.gold.dto.ScheduleCreateRequest;
+import com.sparta.report.gold.dto.ScheduleDeleteRequest;
 import com.sparta.report.gold.dto.ScheduleResponse;
 import com.sparta.report.gold.dto.ScheduleUpdateRequest;
 import com.sparta.report.gold.model.Schedule;
@@ -92,12 +93,16 @@ public class ScheduleService {
   /**
    * 삭제.
    *
-   * @param id 삭제할 id
+   * @param request 삭제 요청
    */
 
   @Transactional
-  public void delete(long id) {
-    Schedule schedule = findScheduleById(id);
+  public void delete(ScheduleDeleteRequest request) {
+    Schedule schedule = findScheduleById(request.getId());
+
+    if (!schedule.getPassword().equals(request.getPassword())) {
+      throw new IllegalArgumentException("password is not correct");
+    }
     repository.delete(schedule);
   }
 }
