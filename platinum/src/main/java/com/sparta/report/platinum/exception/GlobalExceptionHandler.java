@@ -29,7 +29,8 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
-  protected ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+  protected ResponseEntity<ErrorResponse> handleIllegalArgumentException(
+      IllegalArgumentException e) {
     // 예외 처리 코드 작성
     ErrorResponse errorResponse = ErrorResponse.builder(e, HttpStatus.INTERNAL_SERVER_ERROR,
             e.getMessage())

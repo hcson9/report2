@@ -1,13 +1,23 @@
 ### upload banner images
-POST {{host}}:{{port}}/file
+POST localhost:8080/file/upload
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
-Content-Disposition: form-data; name="images"; filename="retriever.png";
+Content-Disposition: form-data; name="files"; filename="1.png";
+Content-Type: image/png
 
-< retriever.png
+< 1.png
 
 --boundary
-Content-Disposition: form-data; name="images"; filename="retriever2.png";
+Content-Disposition: form-data; name="files"; filename="2.png";
+Content-Type: image/png
 
-< retriever2.png
+< 2.png
+
+### download -> path 는 수정...하세요...
+POST http://localhost:8080/file/download
+Content-Type: application/json
+
+{
+  "path": "/Users/sonhochan/IdeaProjects/report2/platinum/http/2.png"
+}
