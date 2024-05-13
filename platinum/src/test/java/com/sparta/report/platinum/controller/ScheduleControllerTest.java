@@ -93,8 +93,8 @@ class ScheduleControllerTest {
   @Test
   void createTest() throws Exception {
     // given
-    ScheduleCreateRequest request = new ScheduleCreateRequest("123", "123", "456", "789");
-    ScheduleResponse response = new ScheduleResponse(1L, "123", "456", "789", LocalDateTime.now());
+    ScheduleCreateRequest request = new ScheduleCreateRequest("123", "123", "456", "789@gmail.com");
+    ScheduleResponse response = new ScheduleResponse(1L, "123", "456", "789@gmail.com", LocalDateTime.now());
 
     // when
     when(service.save(any())).thenReturn(response);
@@ -116,7 +116,7 @@ class ScheduleControllerTest {
   void updateTest() throws Exception {
     // given
     ScheduleUpdateRequest request = new ScheduleUpdateRequest(1L, "123", "123");
-    ScheduleResponse response = new ScheduleResponse(1L, "123", "456", "789", LocalDateTime.now());
+    ScheduleResponse response = new ScheduleResponse(1L, "123", "456", "789@gmail.com", LocalDateTime.now());
 
     // when
     when(service.update(any())).thenReturn(response);

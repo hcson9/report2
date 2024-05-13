@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'jacoco'
 }
 
 java {
@@ -33,4 +34,35 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = '0.8.12'
+}
+jacocoTestReport {
+    reports {
+        html.destination file('build/reports/jacocoReport/html')
+
+
+        xml.destination file('build/reports/jacocoReport/jacocoReport.xml')
+    }
+
+    finalizedBy 'jacocoTestCoverageVerification' // 추가
+}
+
+// 커버리지 수준을 설정
+// rule 적용
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            element = 'BUNDLE'
+            limit {
+                counter = 'METHOD'
+                value = 'COVEREDRATIO'
+                minimum = 0.8
+            }
+            excludes = []
+        }
+    }
 }
