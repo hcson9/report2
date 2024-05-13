@@ -1,5 +1,6 @@
 package com.sparta.report.platinum.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class FileDownloadRequest {
   /**
    * 파일 경로.
    */
+  @NotNull
   private String path;
 
   /**

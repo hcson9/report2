@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "title": "안녕하세요",
-  "username": "hello",
+  "username": "user1234@gmail.com",
   "description": "뭐하지",
   "password": "1234"
 }

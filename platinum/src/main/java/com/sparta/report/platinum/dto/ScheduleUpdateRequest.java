@@ -1,6 +1,7 @@
 package com.sparta.report.platinum.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -29,6 +30,7 @@ public class ScheduleUpdateRequest {
    */
   @NotNull
   @Schema(name = "title", description = "제목", example = "안녕하세요")
+  @Max(value = 200)
   private String title;
 
   /**

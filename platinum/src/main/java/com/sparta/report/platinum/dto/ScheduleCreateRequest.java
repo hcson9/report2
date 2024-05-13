@@ -2,7 +2,9 @@ package com.sparta.report.platinum.dto;
 
 import com.sparta.report.platinum.model.Schedule;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 
 /**
@@ -23,7 +25,8 @@ public class ScheduleCreateRequest {
    * userid.
    */
   @NotNull
-  @Schema(name = "username", description = "유저 이름", example = "user1234")
+  @Schema(name = "username", description = "담당자", example = "user1234@gmail.com")
+  @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식이 올바르지 않습니다.")
   private String username;
 
   /**
@@ -38,6 +41,7 @@ public class ScheduleCreateRequest {
    */
   @NotNull
   @Schema(name = "title", description = "제목", example = "안녕하세요")
+  @Max(value = 200)
   private String title;
 
   /**
