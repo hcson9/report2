@@ -4,6 +4,7 @@ import com.sparta.report.platinum.dto.ScheduleCreateRequest;
 import com.sparta.report.platinum.dto.ScheduleDeleteRequest;
 import com.sparta.report.platinum.dto.ScheduleResponse;
 import com.sparta.report.platinum.dto.ScheduleUpdateRequest;
+import com.sparta.report.platinum.exception.DataNotFoundException;
 import com.sparta.report.platinum.model.Schedule;
 import com.sparta.report.platinum.repository.ScheduleRepository;
 import java.time.LocalDateTime;
@@ -49,7 +50,7 @@ public class ScheduleService {
    */
   private Schedule findScheduleById(long id) {
     return repository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Schedule not found"));
+        .orElseThrow(() -> new DataNotFoundException("Schedule not found"));
   }
 
   /**
