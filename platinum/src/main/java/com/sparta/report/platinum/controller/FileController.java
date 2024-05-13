@@ -3,6 +3,7 @@ package com.sparta.report.platinum.controller;
 import com.sparta.report.platinum.dto.FileDownloadRequest;
 import com.sparta.report.platinum.service.FileService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,6 +43,7 @@ public class FileController {
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @Operation(summary = "이미지 업로드", description = "이미지를 업로드합니다..")
   ResponseEntity<List<String>> upload(
+      @Parameter(description = "업로드할 이미지 파일들", required = true)
       @RequestParam("files") MultipartFile[] files) {
 
     List<String> imageFileNames = new ArrayList<>();
