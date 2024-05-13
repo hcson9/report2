@@ -29,7 +29,7 @@ public class ScheduleRepository {
    *
    * @return id.
    */
-  public static synchronized long getNextId() {
+  public static long getNextId() {
     return ID.getAndIncrement();
   }
 
