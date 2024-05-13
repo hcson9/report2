@@ -1,6 +1,7 @@
 package com.sparta.report.platinum.dto;
 
 import com.sparta.report.platinum.model.Schedule;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -15,29 +16,34 @@ import lombok.Getter;
  * @since 1.0
  */
 @Getter
+@Schema(name = "schedule create request", description = "스케쥴 생성 요청")
 public class ScheduleCreateRequest {
 
   /**
    * userid.
    */
   @NotNull
+  @Schema(name = "username", description = "유저 이름", example = "user1234")
   private String username;
 
   /**
    * 비밀번호.
    */
   @NotNull
+  @Schema(name = "password", description = "비밀번호", example = "password")
   private String password;
 
   /**
    * 제목.
    */
   @NotNull
+  @Schema(name = "title", description = "제목", example = "안녕하세요")
   private String title;
 
   /**
    * 설명.
    */
+  @Schema(name = "description", description = "상세", example = "안녕하세요!!!")
   private String description;
 
 

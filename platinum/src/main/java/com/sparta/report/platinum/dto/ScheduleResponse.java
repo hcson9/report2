@@ -2,6 +2,7 @@ package com.sparta.report.platinum.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sparta.report.platinum.model.Schedule;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
@@ -15,32 +16,42 @@ import lombok.Getter;
  * @since 1.0
  */
 @Getter
+@Schema(name = "schedule response", description = "스케쥴 응답")
 public class ScheduleResponse {
 
   /**
    * 아이디.
    */
+  @Schema(name = "id", description = "아이디", example = "1")
   private Long id;
 
   /**
    * 제목.
    */
+  @Schema(name = "title", description = "제목", example = "안녕하세요")
   private String title;
 
   /**
    * 설명.
    */
+  @Schema(name = "description", description = "상세", example = "안녕하세요!!!")
   private String description;
 
   /**
    * userID.
    */
+  @Schema(name = "username", description = "유저 이름", example = "user1234")
   private String username;
 
   /**
    * 생성일자.
    */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Schema(name = "createdAt",
+      description = "생성일",
+      example = "2024-02-01 12:00:00",
+      pattern = "yyyy-MM-dd HH:mm:ss",
+      type = "string")
   private LocalDateTime createdAt;
 
   /**

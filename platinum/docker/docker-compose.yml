@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  mariadb:
+  mariadb2:
     image: mariadb
     restart: always
     environment:
@@ -10,9 +10,9 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
     ports:
-      - "33002:3306"
+      - "33302:3306"
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql2
 
 volumes:
   mariadb_data:

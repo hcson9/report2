@@ -27,4 +27,14 @@ public class GlobalExceptionHandler {
 
     return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
   }
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  protected ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+    // 예외 처리 코드 작성
+    ErrorResponse errorResponse = ErrorResponse.builder(e, HttpStatus.INTERNAL_SERVER_ERROR,
+            e.getMessage())
+        .build();
+
+    return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }

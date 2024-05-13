@@ -5,15 +5,15 @@ import com.sparta.report.platinum.dto.ScheduleDeleteRequest;
 import com.sparta.report.platinum.dto.ScheduleResponse;
 import com.sparta.report.platinum.dto.ScheduleUpdateRequest;
 import com.sparta.report.platinum.service.ScheduleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +46,10 @@ public class ScheduleController {
    * @return 조회된 스케쥴
    */
   @GetMapping("/{id}")
-  public ResponseEntity<ScheduleResponse> findById(@PathVariable(name = "id") long id) {
+  @Operation(summary = "스케쥴 찾기", description = "ID 로 스케쥴을 찾습니다.")
+  public ResponseEntity<ScheduleResponse> findById(
+      @Parameter(description = "id", example = "1")
+      @PathVariable(name = "id") long id) {
     return ResponseEntity.ok()
         .body(service.findById(id));
   }
@@ -57,6 +60,7 @@ public class ScheduleController {
    * @return 조회된 리스트
    */
   @GetMapping("")
+  @Operation(summary = "스케쥴 전체 조회", description = "전체 스케쥴 조회")
   public ResponseEntity<List<ScheduleResponse>> findAll() {
     return ResponseEntity.ok()
         .body(service.findAll());
@@ -69,6 +73,7 @@ public class ScheduleController {
    * @return 생성된 정보
    */
   @PostMapping("")
+  @Operation(summary = "스케쥴 생성", description = "스케쥴 등록합니다.")
   public ResponseEntity<ScheduleResponse> create(
       @Valid @RequestBody ScheduleCreateRequest request) {
     return ResponseEntity
@@ -83,6 +88,7 @@ public class ScheduleController {
    * @return 수정된 정보.
    */
   @PutMapping("")
+  @Operation(summary = "스케쥴 수정", description = "스케쥴을 수정합니다.")
   public ResponseEntity<ScheduleResponse> update(
       @Valid @RequestBody ScheduleUpdateRequest request) {
     return ResponseEntity.ok()
@@ -96,7 +102,9 @@ public class ScheduleController {
    * @return 삭제정보.
    */
   @DeleteMapping("")
-  public ResponseEntity<String> delete(@Valid @RequestBody ScheduleDeleteRequest request) {
+  @Operation(summary = "스케쥴 삭제", description = "스케쥴을 삭제합니다.")
+  public ResponseEntity<String> delete(
+      @Valid @RequestBody ScheduleDeleteRequest request) {
     service.delete(request);
     return ResponseEntity.ok()
         .body("Successfully deleted");
