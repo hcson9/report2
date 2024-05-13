@@ -39,6 +39,12 @@ public class FileController {
 
   private final FileService fileService;
 
+  /**
+   * 파일 업로드.
+   *
+   * @param files 업로드할 file
+   * @return 파일 경로
+   */
   @PostMapping(value = "/upload",
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @Operation(summary = "이미지 업로드", description = "이미지를 업로드합니다..")
@@ -65,6 +71,13 @@ public class FileController {
     return ResponseEntity.ok().body(imageFileNames);
   }
 
+  /**
+   * 파일 다운로드.
+   *
+   * @param request 생성 요청
+   * @return 파일
+   * @throws IOException 파일 없을 시 발생
+   */
   @PostMapping(value = "/download")
   @Operation(summary = "이미지 다운로드", description = "이미지를 다운로드합니다..")
   public ResponseEntity<byte[]> download(@RequestBody FileDownloadRequest request)
@@ -74,7 +87,8 @@ public class FileController {
 
     // Response Headers 설정
     HttpHeaders headers = new HttpHeaders();
-    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
+    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="
+        + file.getName());
     headers.add(HttpHeaders.CONTENT_TYPE, Files.probeContentType(file.toPath()));
 
     return ResponseEntity.ok()

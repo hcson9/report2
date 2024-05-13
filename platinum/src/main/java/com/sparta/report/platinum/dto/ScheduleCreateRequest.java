@@ -26,7 +26,8 @@ public class ScheduleCreateRequest {
    */
   @NotNull
   @Schema(name = "username", description = "담당자", example = "user1234@gmail.com")
-  @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식이 올바르지 않습니다.")
+  @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$",
+      message = "이메일 형식이 올바르지 않습니다.")
   private String username;
 
   /**
@@ -49,7 +50,6 @@ public class ScheduleCreateRequest {
    */
   @Schema(name = "description", description = "상세", example = "안녕하세요!!!")
   private String description;
-
 
 
   /**
